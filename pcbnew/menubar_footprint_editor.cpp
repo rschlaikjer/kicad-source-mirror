@@ -376,6 +376,12 @@ void FOOTPRINT_EDIT_FRAME::ReCreateMenuBar()
 
     placeMenu->AppendSeparator();
 
+    // Keepout
+    text = AddHotkeyName( _( "&Keepout" ), m_hotkeysDescrList, HK_ADD_KEEPOUT);
+    AddMenuItem( placeMenu, ID_MODEDIT_KEEPOUT_TOOL,
+                 text, _( "Add keepout area" ),
+                 KiBitmap( add_keepout_area_xpm ) );
+
     // Anchor
     text = AddHotkeyName( _( "A&nchor" ), m_hotkeysDescrList, HK_ADD_ANCHOR );
     AddMenuItem( placeMenu, ID_MODEDIT_ANCHOR_TOOL,

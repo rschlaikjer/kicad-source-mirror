@@ -162,6 +162,9 @@ void FOOTPRINT_EDIT_FRAME::ReCreateVToolbar()
     m_drawToolBar->AddTool( ID_MODEDIT_POLYGON_TOOL, wxEmptyString, KiScaledBitmap( add_graphical_polygon_xpm, this ),
                             _( "Add graphic polygon" ), wxITEM_CHECK );
 
+    m_drawToolBar->AddTool( ID_MODEDIT_KEEPOUT_TOOL, wxEmptyString, KiScaledBitmap( add_keepout_area_xpm, this ),
+                            _( "Add keepout area" ), wxITEM_CHECK );
+
     m_drawToolBar->AddTool( ID_MODEDIT_TEXT_TOOL, wxEmptyString, KiScaledBitmap( text_xpm, this ),
                             _( "Add Text" ), wxITEM_CHECK );
 
