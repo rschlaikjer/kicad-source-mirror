@@ -217,6 +217,12 @@ MODULE& MODULE::operator=( const MODULE& aOther )
         }
     }
 
+    // Copy aux data: Zones
+    for ( ZONE_CONTAINER* zone = aOther.m_Zones; zone; zone = zone->Next() )
+    {
+        Add (new ZONE_CONTAINER( *zone ) );
+    }
+
     // Copy auxiliary data: 3D_Drawings info
     m_3D_Drawings.clear();
     m_3D_Drawings = aOther.m_3D_Drawings;

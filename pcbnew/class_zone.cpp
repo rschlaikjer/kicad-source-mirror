@@ -72,7 +72,7 @@ ZONE_CONTAINER::ZONE_CONTAINER( BOARD_ITEM_CONTAINER* aParent ) :
 
 
 ZONE_CONTAINER::ZONE_CONTAINER( const ZONE_CONTAINER& aZone ) :
-    BOARD_CONNECTED_ITEM( aZone )
+    BOARD_CONNECTED_ITEM( aZone.GetParent(), PCB_ZONE_AREA_T )
 {
     // Should the copy be on the same net?
     SetNetCode( aZone.GetNetCode() );
