@@ -30,6 +30,7 @@
 #include <class_pad.h>
 #include <board_commit.h>
 #include <pcb_painter.h>
+#include <pcbnew_id.h>
 
 #include <tools/pcb_actions.h>
 #include <tools/selection_tool.h>
@@ -57,6 +58,7 @@ std::unique_ptr<ZONE_CONTAINER> ZONE_CREATE_HELPER::createNewZone( bool aKeepout
 {
     auto& frame = *m_tool.getEditFrame<PCB_BASE_EDIT_FRAME>();
     auto& board = *m_tool.getModel<BOARD>();
+    BOARD_ITEM_CONTAINER* parent = frame.GetModel();
     KIGFX::VIEW_CONTROLS* controls = m_tool.GetManager()->GetViewControls();
 
     // Get the current default settings for zones
@@ -64,6 +66,7 @@ std::unique_ptr<ZONE_CONTAINER> ZONE_CREATE_HELPER::createNewZone( bool aKeepout
     zoneInfo.m_CurrentZone_Layer = m_params.m_layer;
     zoneInfo.m_NetcodeSelection = board.GetHighLightNetCode();
     zoneInfo.SetIsKeepout( m_params.m_keepout );
+    zoneInfo.SetIsInFootprint( aKeepout && ( frame.GetToolId() == ID_MODEDIT_KEEPOUT_TOOL ) );
 
     if( m_params.m_mode != DRAWING_TOOL::ZONE_MODE::GRAPHIC_POLYGON )
     {
@@ -88,7 +91,7 @@ std::unique_ptr<ZONE_CONTAINER> ZONE_CREATE_HELPER::createNewZone( bool aKeepout
         controls->WarpCursor( controls->GetCursorPosition(), true );
     }
 
-    auto newZone = std::make_unique<ZONE_CONTAINER>( &board );
+    auto newZone = std::make_unique<ZONE_CONTAINER>( parent );
 
     // Apply the selected settings
     zoneInfo.ExportSetting( *newZone );
