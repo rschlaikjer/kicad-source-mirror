@@ -131,6 +131,12 @@ MODULE::MODULE( const MODULE& aModule ) :
         }
     }
 
+    // Copy auxiliary data: Zones
+    for ( ZONE_CONTAINER* zone = aModule.m_Zones; zone; zone = zone->Next() )
+    {
+        Add( static_cast<ZONE_CONTAINER*>( zone->Clone() ) );
+    }
+
     // Copy auxiliary data: 3D_Drawings info
     m_3D_Drawings = aModule.m_3D_Drawings;
 
@@ -273,6 +279,10 @@ void MODULE::Add( BOARD_ITEM* aBoardItem, ADD_MODE aMode )
             m_Pads.PushFront( static_cast<D_PAD*>( aBoardItem ) );
         break;
 
+    case PCB_ZONE_AREA_T:
+        m_Zones.PushBack( static_cast<ZONE_CONTAINER*>( aBoardItem ) );
+        break;
+
     default:
     {
         wxString msg;
@@ -301,9 +311,18 @@ void MODULE::Add( BOARD_ITEM* aBoardItem, ADD_MODE aMode )
         static_cast<D_PAD*>( aBoardItem )->SetLocalCoord();
         break;
 
+    case PCB_ZONE_AREA_T:
+        // TODO
+        // static_cast<ZONE_CONTAINER*>( aBoardItem )->SetLocalCoord();
+        // break;
+
     default:
         // Huh? It should have been filtered out by the previous switch
-        assert(false);
+        wxString msg;
+        msg.Printf( wxT( "MODULE::Add() needs work: BOARD_ITEM type (%d) not handled" ),
+                    aBoardItem->Type() );
+        wxFAIL_MSG( msg );
+
         break;
     }
 }
@@ -325,6 +344,10 @@ void MODULE::Remove( BOARD_ITEM* aBoardItem )
 
     case PCB_PAD_T:
         m_Pads.Remove( static_cast<D_PAD*>( aBoardItem ) );
+        break;
+
+    case PCB_ZONE_AREA_T:
+        m_Zones.Remove( static_cast<ZONE_CONTAINER*>( aBoardItem ) );
         break;
 
     default:
@@ -434,6 +457,21 @@ void MODULE::Draw( EDA_DRAW_PANEL* aPanel, wxDC* aDC, GR_DRAWMODE aDrawMode,
         }
     }
 
+    for( BOARD_ITEM* item = m_Zones; item; item = item->Next() )
+    {
+        if( item->IsMoving() )
+            continue;
+
+        switch ( item->Type() )
+        {
+            case PCB_ZONE_AREA_T:
+                item->Draw( aPanel, aDC, aDrawMode, aOffset );
+                break;
+            default:
+                break;
+        }
+    }
+
     // Enable these line to draw m_BoundaryBox (debug tests purposes only)
 #if 0
     GRRect( aPanel->GetClipBox(), aDC, m_BoundaryBox, 0, BROWN );
@@ -489,7 +527,14 @@ EDA_RECT MODULE::GetFootprintRect() const
     }
 
     for( D_PAD* pad = m_Pads;  pad;  pad = pad->Next() )
+    {
         area.Merge( pad->GetBoundingBox() );
+    }
+
+    for( ZONE_CONTAINER* zone = m_Zones;  zone; zone = zone->Next() )
+    {
+        area.Merge( zone->GetBoundingBox() );
+    }
 
     return area;
 }
@@ -690,6 +735,12 @@ bool MODULE::HitTest( const EDA_RECT& aRect, bool aContained, int aAccuracy ) co
                 return true;
         }
 
+        for( ZONE_CONTAINER* zone = m_Zones; zone; zone = zone->Next() )
+        {
+            if( zone->HitTest( arect, false, 0 ) )
+                return true;
+        }
+
         // No items were hit
         return false;
     }
@@ -836,6 +887,11 @@ SEARCH_RESULT MODULE::Visit( INSPECTOR inspector, void* testData, const KICAD_T 
             ++p;
             break;
 
+        case PCB_ZONE_AREA_T:
+            result = IterateForward( m_Zones, inspector, testData, p );
+            ++p;
+            break;
+
         case PCB_MODULE_TEXT_T:
             result = inspector( m_Reference, testData );
 
@@ -915,6 +971,9 @@ void MODULE::RunOnChildren( const std::function<void (BOARD_ITEM*)>& aFunction )
 
         for( BOARD_ITEM* drawing = m_Drawings; drawing; drawing = drawing->Next() )
             aFunction( drawing );
+
+        for( ZONE_CONTAINER* zone = m_Zones; zone; zone = zone->Next() )
+            aFunction( zone );
 
         aFunction( static_cast<BOARD_ITEM*>( m_Reference ) );
         aFunction( static_cast<BOARD_ITEM*>( m_Value ) );
@@ -1116,6 +1175,11 @@ void MODULE::Flip( const wxPoint& aCentre )
         }
     }
 
+    for( ZONE_CONTAINER* zone = m_Zones; zone; zone = zone->Next() )
+    {
+        zone->Flip( m_Pos );
+    }
+
     CalculateBoundingBox();
 }
 
@@ -1156,6 +1220,11 @@ void MODULE::SetPosition( const wxPoint& newpos )
             wxMessageBox( wxT( "Draw type undefined." ) );
             break;
         }
+    }
+
+    for( ZONE_CONTAINER* zone = m_Zones; zone; zone = zone->Next() )
+    {
+        zone->Move( delta );
     }
 
     CalculateBoundingBox();
@@ -1215,6 +1284,11 @@ void MODULE::MoveAnchorPosition( const wxPoint& aMoveVector )
         }
     }
 
+    for( ZONE_CONTAINER* zone = m_Zones; zone; zone = zone->Next() )
+    {
+        zone->Move( moveVector );
+    }
+
     CalculateBoundingBox();
 }
 
@@ -1248,6 +1322,11 @@ void MODULE::SetOrientation( double newangle )
         {
             static_cast<TEXTE_MODULE*>( item )->SetDrawCoord();
         }
+    }
+
+    for( ZONE_CONTAINER* zone = m_Zones; zone; zone = zone->Next() )
+    {
+        zone->Rotate( zone->GetCenter(), angleChange );
     }
 
     CalculateBoundingBox();
@@ -1300,6 +1379,19 @@ BOARD_ITEM* MODULE::Duplicate( const BOARD_ITEM* aItem,
             GraphicalItemsList().PushBack( new_edge );
 
         new_item = new_edge;
+        break;
+    }
+
+    case PCB_ZONE_AREA_T:
+    {
+        ZONE_CONTAINER* new_zone = new ZONE_CONTAINER(
+                *static_cast<const ZONE_CONTAINER*>( aItem ) );
+        if ( aAddToModule )
+        {
+            m_Zones.PushBack( new_zone );
+        }
+
+        new_item = new_zone;
         break;
     }
 

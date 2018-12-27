@@ -36,6 +36,7 @@
 #include <dlist.h>
 #include <layers_id_colors_and_visibility.h>       // ALL_LAYERS definition.
 #include <class_board_item.h>
+#include <class_zone.h>
 #include <board_item_container.h>
 #include <collectors.h>
 #include <lib_id.h>
@@ -164,6 +165,9 @@ public:
 
     DLIST<BOARD_ITEM>& GraphicalItemsList()         { return m_Drawings; }
     const DLIST<BOARD_ITEM>& GraphicalItemsList() const { return m_Drawings; }
+
+    DLIST<ZONE_CONTAINER>& ZonesList() { return m_Zones; }
+    const DLIST<ZONE_CONTAINER>& ZonesList() const { return m_Zones; }
 
     DLIST_ITERATOR_WRAPPER<D_PAD> Pads()
     {
@@ -729,6 +733,7 @@ public:
 private:
     DLIST<D_PAD> m_Pads;                ///< Linked list of pads.
     DLIST<BOARD_ITEM> m_Drawings;       ///< Linked list of graphical items.
+    DLIST<ZONE_CONTAINER> m_Zones;      ///< Linked list of zones.
     std::list<MODULE_3D_SETTINGS> m_3D_Drawings;  ///< Linked list of 3D models.
     double m_Orient;                    ///< Orientation in tenths of a degree, 900=90.0 degrees.
     wxPoint m_Pos;                      ///< Position of module on the board in internal units.
