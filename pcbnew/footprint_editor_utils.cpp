@@ -980,6 +980,11 @@ void FOOTPRINT_EDIT_FRAME::OnVerticalToolbar( wxCommandEvent& aEvent )
         SetToolID( id, wxCURSOR_BULLSEYE, _( "Delete item" ) );
         break;
 
+    case ID_MODEDIT_KEEPOUT_TOOL:
+        DisplayError( this, wxT( "Keepout area not available in Legacy Toolset" ) );
+        SetNoToolSelected();
+        break;
+
     case ID_MODEDIT_MEASUREMENT_TOOL:
         DisplayError( this, wxT( "Measurement Tool not available in Legacy Toolset" ) );
         SetNoToolSelected();
