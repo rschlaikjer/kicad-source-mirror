@@ -1100,6 +1100,10 @@ void PCB_IO::format( MODULE* aModule, int aNestLevel ) const
     for( D_PAD* pad = aModule->PadsList();  pad;  pad = pad->Next() )
         format( pad, aNestLevel+1 );
 
+    // Save zones.
+    for( ZONE_CONTAINER* zone = aModule->ZonesLise();  zone;  zone = zone->Next() )
+        format( zone, aNestLevel+1 );
+
     // Save 3D info.
     auto bs3D = aModule->Models().begin();
     auto es3D = aModule->Models().end();
