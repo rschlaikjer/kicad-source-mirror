@@ -49,8 +49,8 @@
 #include <polygon_test_point_inside.h>
 
 
-ZONE_CONTAINER::ZONE_CONTAINER( BOARD* aBoard ) :
-    BOARD_CONNECTED_ITEM( aBoard, PCB_ZONE_AREA_T )
+ZONE_CONTAINER::ZONE_CONTAINER( BOARD_ITEM_CONTAINER* aParent ) :
+    BOARD_CONNECTED_ITEM( aParent, PCB_ZONE_AREA_T )
 {
     m_CornerSelection = nullptr;                // no corner is selected
     m_IsFilled = false;                         // fill status : true when the zone is filled
@@ -67,7 +67,7 @@ ZONE_CONTAINER::ZONE_CONTAINER( BOARD* aBoard ) :
     m_cornerRadius = 0;
     SetLocalFlags( 0 );                         // flags tempoarry used in zone calculations
     m_Poly = new SHAPE_POLY_SET();              // Outlines
-    aBoard->GetZoneSettings().ExportSetting( *this );
+    aParent->GetZoneSettings().ExportSetting( *this );
 }
 
 
