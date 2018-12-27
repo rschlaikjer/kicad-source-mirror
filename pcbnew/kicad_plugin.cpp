@@ -1101,7 +1101,7 @@ void PCB_IO::format( MODULE* aModule, int aNestLevel ) const
         format( pad, aNestLevel+1 );
 
     // Save zones.
-    for( ZONE_CONTAINER* zone = aModule->ZonesLise();  zone;  zone = zone->Next() )
+    for( ZONE_CONTAINER* zone = aModule->ZonesList();  zone;  zone = zone->Next() )
         format( zone, aNestLevel+1 );
 
     // Save 3D info.
