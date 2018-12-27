@@ -89,6 +89,10 @@ private:
      */
     bool                  m_isKeepout;
 
+    /* Zones may also be drawn inside footprints
+     */
+    bool                  m_isInFootprint;
+
     /* For keepout zones only:
      * what is not allowed inside the keepout ( pads, tracks and vias )
      */
@@ -140,11 +144,13 @@ public:
      * Accessors to parameters used in Keepout zones:
      */
     const bool GetIsKeepout() const { return m_isKeepout; }
+    const bool GetIsInFootprint() const { return m_isInFootprint; }
     const bool GetDoNotAllowCopperPour() const { return m_keepoutDoNotAllowCopperPour; }
     const bool GetDoNotAllowVias() const { return m_keepoutDoNotAllowVias; }
     const bool GetDoNotAllowTracks() const { return m_keepoutDoNotAllowTracks; }
 
     void SetIsKeepout( bool aEnable ) { m_isKeepout = aEnable; }
+    void SetIsInFootprint( bool aEnable ) { m_isInFootprint = aEnable; }
     void SetDoNotAllowCopperPour( bool aEnable ) { m_keepoutDoNotAllowCopperPour = aEnable; }
     void SetDoNotAllowVias( bool aEnable ) { m_keepoutDoNotAllowVias = aEnable; }
     void SetDoNotAllowTracks( bool aEnable ) { m_keepoutDoNotAllowTracks = aEnable; }

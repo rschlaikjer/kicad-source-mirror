@@ -68,6 +68,7 @@ ZONE_SETTINGS::ZONE_SETTINGS()
     m_cornerRadius = 0;
 
     SetIsKeepout( false );
+    SetIsInFootprint( false );
     SetDoNotAllowCopperPour( false );
     SetDoNotAllowVias( true );
     SetDoNotAllowTracks( true );
