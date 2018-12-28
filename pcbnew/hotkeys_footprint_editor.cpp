@@ -266,6 +266,12 @@ bool FOOTPRINT_EDIT_FRAME::OnHotkeyEditItem( int aIdCommand )
 
         break;
 
+    case PCB_ZONE_AREA_T:
+        if ( aIdCommand == HK_EDIT_ITEM )
+            evt_type = ID_POPUP_PCB_EDIT_ZONE_PARAMS;
+
+        break;
+
     default:
         break;
     }

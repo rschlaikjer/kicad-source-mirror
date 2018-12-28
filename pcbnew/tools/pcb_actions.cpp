@@ -62,6 +62,7 @@ OPT<TOOL_EVENT> PCB_ACTIONS::TranslateLegacyId( int aId )
         return PCB_ACTIONS::drawVia.MakeEvent();
 
     case ID_PCB_KEEPOUT_AREA_BUTT:
+    case ID_MODEDIT_KEEPOUT_TOOL:
         return PCB_ACTIONS::drawZoneKeepout.MakeEvent();
 
     case ID_PCB_ADD_LINE_BUTT:

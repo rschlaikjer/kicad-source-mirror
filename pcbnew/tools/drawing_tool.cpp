@@ -692,7 +692,9 @@ int DRAWING_TOOL::DrawZoneKeepout( const TOOL_EVENT& aEvent )
 {
     SCOPED_DRAW_MODE scopedDrawMode( m_mode, MODE::KEEPOUT );
 
-    m_frame->SetToolID( ID_PCB_KEEPOUT_AREA_BUTT, wxCURSOR_PENCIL, _( "Add keepout" ) );
+    m_frame->SetToolID(
+        m_editModules ? ID_MODEDIT_KEEPOUT_TOOL : ID_PCB_KEEPOUT_AREA_BUTT,
+        wxCURSOR_PENCIL, _( "Add keepout" ) );
 
     return drawZone( true, ZONE_MODE::ADD );
 }
