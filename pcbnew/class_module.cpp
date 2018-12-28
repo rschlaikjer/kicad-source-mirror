@@ -1332,7 +1332,7 @@ void MODULE::SetOrientation( double newangle )
 
     for( ZONE_CONTAINER* zone = m_Zones; zone; zone = zone->Next() )
     {
-        zone->Rotate( zone->GetCenter(), angleChange );
+        zone->Rotate( GetPosition(), angleChange );
     }
 
     CalculateBoundingBox();
