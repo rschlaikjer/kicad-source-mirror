@@ -319,9 +319,8 @@ void MODULE::Add( BOARD_ITEM* aBoardItem, ADD_MODE aMode )
         break;
 
     case PCB_ZONE_AREA_T:
-        // TODO
-        // static_cast<ZONE_CONTAINER*>( aBoardItem )->SetLocalCoord();
-        // break;
+        // Zones do not have relative coordinates
+        break;
 
     default:
         // Huh? It should have been filtered out by the previous switch
