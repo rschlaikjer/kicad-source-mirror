@@ -115,6 +115,8 @@ public:
      */
     bool Update3DView( const wxString* aTitle = nullptr );
 
+    virtual bool IsFootprint() { return false; }
+
     /**
      * Function LoadFootprint
      * attempts to load \a aFootprintId from the footprint library table.

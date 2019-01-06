@@ -163,8 +163,9 @@ void ZONE_SETTINGS::SetupLayersList( wxDataViewListCtrl* aList, PCB_BASE_FRAME* 
 {
     BOARD* board = aFrame->GetBoard();
     COLOR4D backgroundColor = aFrame->Settings().Colors().GetLayerColor( LAYER_PCB_BACKGROUND );
-    LSET layers = aShowCopper ? LSET::AllCuMask( board->GetCopperLayerCount() )
-                              : LSET::AllNonCuMask();
+    LSET layers = aShowCopper ?
+        LSET::AllCuMask( aFrame->IsFootprint() ? MAX_CU_LAYERS : board->GetCopperLayerCount() )
+        : LSET::AllNonCuMask();
 
     wxDataViewColumn* checkColumn = aList->AppendToggleColumn( wxEmptyString );
     wxDataViewColumn* layerColumn = aList->AppendIconTextColumn( wxEmptyString );

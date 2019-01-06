@@ -62,6 +62,8 @@ public:
      */
     static const wxChar* GetFootprintEditorFrameName();
 
+    bool IsFootprint() override { return true; }
+
     ///> @copydoc PCB_BASE_EDIT_FRAME::GetModel()
     BOARD_ITEM_CONTAINER* GetModel() const override;
 
