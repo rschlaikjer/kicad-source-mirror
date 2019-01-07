@@ -36,6 +36,8 @@
 #include <class_edge_mod.h>
 #include <origin_viewitem.h>
 
+#include <board_commit.h>
+
 #include <pcbnew.h>
 #include <pcbnew_id.h>
 #include <tools/pcbnew_control.h>
@@ -550,11 +552,14 @@ void FOOTPRINT_EDIT_FRAME::OnEditItemRequest( wxDC* aDC, BOARD_ITEM* aItem )
 
             if ( success )
             {
-                //BOARD_COMMIT commit( this );
+                BOARD_COMMIT commit( this );
+                commit.Modify( zone );
+                commit.Push( _( "Edit zone" ) );
+
                 zoneSettings.ExportSetting( *zone );
 
-                // commit.Add( zone.release() );
-                // commit.push( _( "Edit zone" ) );
+                // commit.Add( zone->release() );
+                // auto newZone = std::make_unique<ZONE_CONTAINER>( *oldZone );
             }
         }
         break;
