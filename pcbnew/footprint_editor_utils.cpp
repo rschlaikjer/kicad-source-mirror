@@ -408,6 +408,9 @@ void FOOTPRINT_EDIT_FRAME::OnEditItemRequest( BOARD_ITEM* aItem )
 
                 if( success )
                 {
+                    BOARD_COMMIT commit( this );
+                    commit.Modify( zone );
+                    commit.Push( _( "Edit Zone" ) );
                     zoneSettings.ExportSetting( *zone );
                 }
             }
