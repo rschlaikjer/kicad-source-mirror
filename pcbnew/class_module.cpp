@@ -1224,7 +1224,7 @@ void MODULE::SetOrientation( double newangle )
 
     for( auto zone : m_zones )
     {
-        zone->Rotate( zone->GetCenter(), angleChange );
+        zone->Rotate( GetPosition(), angleChange );
     }
 
     // Update of the reference and value.
