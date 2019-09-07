@@ -192,7 +192,6 @@ private:
     std::shared_ptr<CONNECTIVITY_DATA>      m_connectivity;
 
     BOARD_DESIGN_SETTINGS   m_designSettings;
-    ZONE_SETTINGS           m_zoneSettings;
     PCB_GENERAL_SETTINGS*   m_generalSettings;      ///< reference only; I have no ownership
     PAGE_INFO               m_paper;
     TITLE_BLOCK             m_titles;               ///< text in lower right of screen and plots
@@ -560,9 +559,6 @@ public:
 
     TITLE_BLOCK& GetTitleBlock()                            { return m_titles; }
     void SetTitleBlock( const TITLE_BLOCK& aTitleBlock )    { m_titles = aTitleBlock; }
-
-    const ZONE_SETTINGS& GetZoneSettings() const            { return m_zoneSettings; }
-    void SetZoneSettings( const ZONE_SETTINGS& aSettings )  { m_zoneSettings = aSettings; }
 
     wxString    GetSelectMenuText( EDA_UNITS_T aUnits ) const override;
 
