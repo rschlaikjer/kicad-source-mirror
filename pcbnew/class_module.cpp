@@ -1120,7 +1120,7 @@ void MODULE::SetPosition( const wxPoint& newpos )
 
     for( auto zone : m_zones )
     {
-        zone->SetPosition( zone->GetPosition() + delta );
+        zone->Move( delta );
     }
 
     for( auto item : m_drawings )
