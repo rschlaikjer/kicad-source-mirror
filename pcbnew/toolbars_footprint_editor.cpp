@@ -129,19 +129,19 @@ void FOOTPRINT_EDIT_FRAME::ReCreateVToolbar()
     m_drawToolBar->Add( ACTIONS::selectionTool,      ACTION_TOOLBAR::TOGGLE );
 
     KiScaledSeparator( m_drawToolBar, this );
-    m_drawToolBar->Add( PCB_ACTIONS::placePad,        ACTION_TOOLBAR::TOGGLE );
-    m_drawToolBar->Add( PCB_ACTIONS::drawLine,        ACTION_TOOLBAR::TOGGLE );
-    m_drawToolBar->Add( PCB_ACTIONS::drawCircle,      ACTION_TOOLBAR::TOGGLE );
-    m_drawToolBar->Add( PCB_ACTIONS::drawArc,         ACTION_TOOLBAR::TOGGLE );
-    m_drawToolBar->Add( PCB_ACTIONS::drawPolygon,     ACTION_TOOLBAR::TOGGLE );
+    m_drawToolBar->Add( PCB_ACTIONS::placePad, ACTION_TOOLBAR::TOGGLE );
+    m_drawToolBar->Add( PCB_ACTIONS::drawLine, ACTION_TOOLBAR::TOGGLE );
+    m_drawToolBar->Add( PCB_ACTIONS::drawCircle, ACTION_TOOLBAR::TOGGLE );
+    m_drawToolBar->Add( PCB_ACTIONS::drawArc, ACTION_TOOLBAR::TOGGLE );
+    m_drawToolBar->Add( PCB_ACTIONS::drawPolygon, ACTION_TOOLBAR::TOGGLE );
     m_drawToolBar->Add( PCB_ACTIONS::drawZoneKeepout, ACTION_TOOLBAR::TOGGLE );
-    m_drawToolBar->Add( PCB_ACTIONS::placeText,       ACTION_TOOLBAR::TOGGLE );
-    m_drawToolBar->Add( ACTIONS::deleteTool,          ACTION_TOOLBAR::TOGGLE );
+    m_drawToolBar->Add( PCB_ACTIONS::placeText, ACTION_TOOLBAR::TOGGLE );
+    m_drawToolBar->Add( ACTIONS::deleteTool, ACTION_TOOLBAR::TOGGLE );
 
     KiScaledSeparator( m_drawToolBar, this );
-    m_drawToolBar->Add( PCB_ACTIONS::setAnchor,       ACTION_TOOLBAR::TOGGLE );
-    m_drawToolBar->Add( PCB_ACTIONS::gridSetOrigin,   ACTION_TOOLBAR::TOGGLE );
-    m_drawToolBar->Add( ACTIONS::measureTool,         ACTION_TOOLBAR::TOGGLE );
+    m_drawToolBar->Add( PCB_ACTIONS::setAnchor, ACTION_TOOLBAR::TOGGLE );
+    m_drawToolBar->Add( PCB_ACTIONS::gridSetOrigin, ACTION_TOOLBAR::TOGGLE );
+    m_drawToolBar->Add( ACTIONS::measureTool, ACTION_TOOLBAR::TOGGLE );
 
     m_drawToolBar->Realize();
 }

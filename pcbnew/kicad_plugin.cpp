@@ -1142,7 +1142,7 @@ void PCB_IO::format( MODULE* aModule, int aNestLevel ) const
 
     // Save zones.
     for( auto zone : aModule->Zones() )
-        format( zone, aNestLevel+1 );
+        format( zone, aNestLevel + 1 );
 
     // Save 3D info.
     auto bs3D = aModule->Models().begin();

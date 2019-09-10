@@ -1537,7 +1537,7 @@ MODULE* BOARD::GetFootprint( const wxPoint& aPosition, PCB_LAYER_ID aActiveLayer
     return NULL;
 }
 
-std::list<ZONE_CONTAINER *> BOARD::GetZoneList( bool aIncludeZonesInFootprints )
+std::list<ZONE_CONTAINER*> BOARD::GetZoneList( bool aIncludeZonesInFootprints )
 {
     std::list<ZONE_CONTAINER*> zones;
 

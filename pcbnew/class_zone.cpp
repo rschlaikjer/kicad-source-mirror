@@ -42,8 +42,8 @@
 #include <polygon_test_point_inside.h>
 
 
-ZONE_CONTAINER::ZONE_CONTAINER( BOARD_ITEM_CONTAINER* aParent ) :
-    BOARD_CONNECTED_ITEM( aParent, PCB_ZONE_AREA_T )
+ZONE_CONTAINER::ZONE_CONTAINER( BOARD_ITEM_CONTAINER* aParent )
+        : BOARD_CONNECTED_ITEM( aParent, PCB_ZONE_AREA_T )
 {
     m_CornerSelection = nullptr;                // no corner is selected
     m_IsFilled = false;                         // fill status : true when the zone is filled
@@ -73,8 +73,8 @@ ZONE_CONTAINER::ZONE_CONTAINER( BOARD_ITEM_CONTAINER* aParent ) :
 }
 
 
-ZONE_CONTAINER::ZONE_CONTAINER( const ZONE_CONTAINER& aZone ) :
-    BOARD_CONNECTED_ITEM( aZone.GetParent(), PCB_ZONE_AREA_T )
+ZONE_CONTAINER::ZONE_CONTAINER( const ZONE_CONTAINER& aZone )
+        : BOARD_CONNECTED_ITEM( aZone.GetParent(), PCB_ZONE_AREA_T )
 {
     // Should the copy be on the same net?
     SetNetCode( aZone.GetNetCode() );

@@ -77,14 +77,13 @@ public:
      * @brief Set the zone settings for this container
      * @param aSettings new Zone settings for this container
      */
-    void SetZoneSettings(const ZONE_SETTINGS& aSettings)
+    void SetZoneSettings( const ZONE_SETTINGS& aSettings )
     {
         m_zoneSettings = aSettings;
     }
 
 private:
-    ZONE_SETTINGS           m_zoneSettings;
-
+    ZONE_SETTINGS m_zoneSettings;
 };
 
 #endif /* BOARD_ITEM_CONTAINER_H */

@@ -41,9 +41,9 @@
 #include <lib_id.h>
 #include <list>
 
+#include "zones.h"
 #include <class_text_mod.h>
 #include <class_zone.h>
-#include "zones.h"
 
 #include <core/iterators.h>
 
@@ -662,9 +662,9 @@ public:
 #endif
 
 private:
-    DRAWINGS        m_drawings;          // BOARD_ITEMs for drawings on the board, owned by pointer.
-    PADS            m_pads;              // D_PAD items, owned by pointer
-    ZONE_CONTAINERS m_zones;             // ZONE items, owned by pointer
+    DRAWINGS        m_drawings; // BOARD_ITEMs for drawings on the board, owned by pointer.
+    PADS            m_pads;     // D_PAD items, owned by pointer
+    ZONE_CONTAINERS m_zones;    // ZONE items, owned by pointer
     std::list<MODULE_3D_SETTINGS> m_3D_Drawings;  // Linked list of 3D models.
 
     double         m_Orient;            // Orientation in tenths of a degree, 900=90.0 degrees.

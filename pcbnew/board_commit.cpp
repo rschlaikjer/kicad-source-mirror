@@ -60,11 +60,11 @@ COMMIT& BOARD_COMMIT::Stage( EDA_ITEM* aItem, CHANGE_TYPE aChangeType )
 {
     // if aItem belongs a footprint, the full footprint will be saved
     // because undo/redo does not handle "sub items" modifications
-    if( aItem && aItem->Type() != PCB_MODULE_T && aChangeType == CHT_MODIFY)
+    if( aItem && aItem->Type() != PCB_MODULE_T && aChangeType == CHT_MODIFY )
     {
         EDA_ITEM* item = aItem->GetParent();
 
-        if( item && item->Type() == PCB_MODULE_T )  // means aItem belongs a footprint
+        if( item && item->Type() == PCB_MODULE_T ) // means aItem belongs a footprint
             aItem = item;
     }
 

@@ -51,7 +51,7 @@ ZONE_CREATE_HELPER::~ZONE_CREATE_HELPER()
 
 std::unique_ptr<ZONE_CONTAINER> ZONE_CREATE_HELPER::createNewZone( bool aKeepout )
 {
-    auto& frame = *m_tool.getEditFrame<PCB_BASE_EDIT_FRAME>();
+    auto&                 frame = *m_tool.getEditFrame<PCB_BASE_EDIT_FRAME>();
     auto& board = *m_tool.getModel<BOARD>();
     BOARD_ITEM_CONTAINER* parent = m_tool.m_frame->GetModel();
     KIGFX::VIEW_CONTROLS* controls = m_tool.GetManager()->GetViewControls();

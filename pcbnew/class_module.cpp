@@ -109,9 +109,9 @@ MODULE::MODULE( const MODULE& aModule ) :
     }
 
     // Copy auxiliary data: Zones
-    for ( auto item : aModule.Zones() )
+    for( auto item : aModule.Zones() )
     {
-      Add( static_cast<ZONE_CONTAINER*>( item->Clone() ) );
+        Add( static_cast<ZONE_CONTAINER*>( item->Clone() ) );
     }
 
     // Copy auxiliary data: Drawings
@@ -211,9 +211,9 @@ MODULE& MODULE::operator=( const MODULE& aOther )
     // Copy auxiliary data: Zones
     m_zones.clear();
 
-    for ( auto item : aOther.Zones() )
+    for( auto item : aOther.Zones() )
     {
-      Add( static_cast<ZONE_CONTAINER*>( item->Clone() ) );
+        Add( static_cast<ZONE_CONTAINER*>( item->Clone() ) );
     }
 
     // Copy auxiliary data: Drawings
@@ -793,7 +793,7 @@ SEARCH_RESULT MODULE::Visit( INSPECTOR inspector, void* testData, const KICAD_T 
             break;
 
         case PCB_ZONE_AREA_T:
-            result = IterateForward<ZONE_CONTAINER *>( m_zones, inspector, testData, p );
+            result = IterateForward<ZONE_CONTAINER*>( m_zones, inspector, testData, p );
             ++p;
             break;
 
@@ -1253,7 +1253,7 @@ BOARD_ITEM* MODULE::Duplicate( const BOARD_ITEM* aItem,
 {
     BOARD_ITEM* new_item = NULL;
     D_PAD* new_pad = NULL;
-    ZONE_CONTAINER *new_zone = NULL;
+    ZONE_CONTAINER* new_zone = NULL;
 
     switch( aItem->Type() )
     {
@@ -1273,7 +1273,7 @@ BOARD_ITEM* MODULE::Duplicate( const BOARD_ITEM* aItem,
         new_zone = new ZONE_CONTAINER( *static_cast<const ZONE_CONTAINER*>( aItem ) );
 
         if( aAddToModule )
-          m_zones.push_back( new_zone );
+            m_zones.push_back( new_zone );
 
         new_item = new_zone;
         break;
